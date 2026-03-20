@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:9.6.0
+    container_name: algafood_db
+    networks:
+      - default
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: algafoodroot
+networks:
+  default:
+    name: algafood_network
