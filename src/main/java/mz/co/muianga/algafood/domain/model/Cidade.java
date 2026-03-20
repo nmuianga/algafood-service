@@ -11,14 +11,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
 @Entity
-public class Restaurante {
+public class Cidade {
 
   @EqualsAndHashCode.Include
   @Id
@@ -28,11 +25,7 @@ public class Restaurante {
   @Column(nullable = false)
   private String nome;
 
-  @Column(name = "taxa_frete", nullable = false)
-  private BigDecimal taxaFrete;
-
   @ManyToOne
-  @JoinColumn(nullable = false)
-  private Cozinha cozinha;
-
+  @JoinColumn(name = "estado_id", nullable = false)
+  private Estado estado;
 }
