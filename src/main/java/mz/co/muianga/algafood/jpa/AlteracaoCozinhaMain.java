@@ -7,25 +7,20 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-public class InclusaoCozinhaMain {
+public class AlteracaoCozinhaMain {
 
   public static void main(String[] args) {
     ApplicationContext context = new SpringApplicationBuilder(AlgafoodServiceApplication.class)
       .web(WebApplicationType.NONE)
       .run(args);
 
-    CozinhaRepository cozinhaRepository = context.getBean(CozinhaRepository.class);
+    CozinhaRepository cadastroCozinha = context.getBean(CozinhaRepository.class);
 
-    Cozinha cozinha = new Cozinha();
-    cozinha.setNome("Cozinha 1");
+    Cozinha c1 = new Cozinha();
+    c1.setId(1L);
+    c1.setNome("Mocambicana");
 
-    Cozinha cozinha2 = new Cozinha();
-    cozinha2.setNome("Cozinha 2");
+    cadastroCozinha.salvar(c1);
 
-    cozinha = cozinhaRepository.salvar(cozinha);
-    cozinha2 = cozinhaRepository.salvar(cozinha2);
-
-    System.out.printf("%d - %s%n", cozinha.getId(), cozinha.getNome());
-    System.out.printf("%d - %s%n", cozinha2.getId(), cozinha2.getNome());
   }
 }
