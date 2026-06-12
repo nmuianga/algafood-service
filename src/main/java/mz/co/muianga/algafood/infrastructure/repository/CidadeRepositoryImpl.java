@@ -4,9 +4,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import mz.co.muianga.algafood.domain.model.Cidade;
 import mz.co.muianga.algafood.domain.repository.CidadeRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Component
 public class CidadeRepositoryImpl implements CidadeRepository {
 
   @PersistenceContext
@@ -22,11 +25,13 @@ public class CidadeRepositoryImpl implements CidadeRepository {
     return manager.find(Cidade.class, id);
   }
 
+  @Transactional
   @Override
   public Cidade salvar(Cidade cidade) {
     return manager.merge(cidade);
   }
 
+  @Transactional
   @Override
   public void remover(Cidade cidade) {
     this.buscar(cidade.getId());
