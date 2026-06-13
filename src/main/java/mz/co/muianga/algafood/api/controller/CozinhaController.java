@@ -1,11 +1,12 @@
 package mz.co.muianga.algafood.api.controller;
 
 import lombok.RequiredArgsConstructor;
+import mz.co.muianga.algafood.domain.exception.EntidadeEmUsoexception;
+import mz.co.muianga.algafood.domain.exception.EntidadeNaoEncontradaException;
 import mz.co.muianga.algafood.domain.model.Cozinha;
 import mz.co.muianga.algafood.domain.repository.CozinhaRepository;
 import mz.co.muianga.algafood.domain.service.CozinhaService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,7 +58,6 @@ public class CozinhaController {
       return ResponseEntity.notFound().build();
     }
 
-    //cozinhaAtual.setNome(cozinha.getNome());
     BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
     cozinhaAtual = cozinhaRepository.salvar(cozinhaAtual);
     return ResponseEntity.ok(cozinhaAtual);
@@ -66,14 +66,12 @@ public class CozinhaController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> remover(@PathVariable Long id) {
     try {
-      Cozinha cozinha = cozinhaRepository.buscar(id);
-      if (cozinha == null) {
-        return ResponseEntity.notFound().build();
-      }
 
-      cozinhaRepository.remover(cozinha);
+      cozinhaService.excluir(id);
       return ResponseEntity.noContent().build();
-    } catch (DataIntegrityViolationException e) {
+    } catch (EntidadeNaoEncontradaException e) {
+      return ResponseEntity.notFound().build();
+    } catch (EntidadeEmUsoexception e) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
   }
