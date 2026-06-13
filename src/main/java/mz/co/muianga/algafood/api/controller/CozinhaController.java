@@ -3,6 +3,7 @@ package mz.co.muianga.algafood.api.controller;
 import lombok.RequiredArgsConstructor;
 import mz.co.muianga.algafood.domain.model.Cozinha;
 import mz.co.muianga.algafood.domain.repository.CozinhaRepository;
+import mz.co.muianga.algafood.domain.service.CozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import java.util.List;
 public class CozinhaController {
 
   private final CozinhaRepository cozinhaRepository;
+  private final CozinhaService cozinhaService;
 
   @GetMapping
   public List<Cozinha> listar() {
@@ -45,7 +47,7 @@ public class CozinhaController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Cozinha adicionar(@RequestBody Cozinha cozinha) {
-    return cozinhaRepository.salvar(cozinha);
+    return cozinhaService.salvar(cozinha);
   }
 
   @PutMapping("/{id}")
