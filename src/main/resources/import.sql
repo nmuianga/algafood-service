@@ -1,5 +1,6 @@
 insert into cozinha (nome) values ('Tailandesa');
 insert into cozinha (nome) values ('Indiana');
+insert into cozinha (nome) values ('Mocambicana');
 
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('Muianga Food', 20, 1);
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('Alice''s Cakes', 10.5, 2);
